@@ -53,3 +53,20 @@ html{
 	background-color: black;
 	color:pink;
 }
+
+h2{
+	padding-left: 10px;
+}
+
+p{
+	letter-spacing: 1px;
+	padding:15px;
+}
+
+.pdf-view{
+	text-align: center;
+}
+
+#adobe-dc-pdf-view{
+	display:inline-block;
+}

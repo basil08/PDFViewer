@@ -64,12 +64,21 @@ var init = function(){
 	// setup event handlers for each button
 	document.getElementById("full-window-btn").onclick = function(){
 		setViewMode('FULL_WINDOW');
+		document.getElementsByTagName('body').style = "margin: 0px";
+		document.getElementById('adobe-dc-pdf-view').style = "";
 	}
 	document.getElementById("inline-btn").onclick = function(){
 		setViewMode('IN_LINE');
+		document.getElementsByTagName('body').style = "margin: 0px";
+		document.getElementById('adobe-dc-pdf-view').style = "";
 	}
 	document.getElementById("sized-btn").onclick = function(){
 		setViewMode('SIZED_CONTAINER');
+		document.getElementsByTagName('body').style = "margin:100px 0 0 200px";
+		document.getElementById('adobe-dc-pdf-view').style = "height: 476px; width: 600px; border: 1px solid #dadada";
+		// style="margin: 100px 0 0 200px;"
+		// div styling : style="height: 476px; width: 600px; border: 1px solid #dadada;"
+
 	}
 	document.addEventListener("adobe_dc_view_sdk.ready" , previewFile);
 }
