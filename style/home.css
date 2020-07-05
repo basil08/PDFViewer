@@ -6,8 +6,8 @@ html{
 .header{
 	text-align: center;
 	padding:20px;
-	border: 2px solid #ccc;
-	background-color: #eee;
+	border: 1px solid #000;
+	background-color: #ccc;
 }
 
 .menu{
@@ -55,7 +55,6 @@ html{
 	background-color: black;
 	color:pink;
 }
-
 
 h2{
 	padding-left: 10px;
