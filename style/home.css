@@ -20,6 +20,8 @@ html{
 	border:none;
 	text-align: center;
 	padding:10px;
+	border-radius: 5px;
+	transition:0.4s;
 	cursor:pointer;
 }
 
@@ -53,6 +55,7 @@ html{
 	background-color: black;
 	color:pink;
 }
+
 
 h2{
 	padding-left: 10px;
