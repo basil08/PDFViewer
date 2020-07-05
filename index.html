@@ -1,0 +1,44 @@
+<html>
+
+
+<head>
+
+
+<title>PDF Viewer</title>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1"/>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-171640245-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-171640245-1');
+</script>
+
+
+<link rel="stylesheet" type="text/css" href="style/home.css" />
+<script type="text/javascript" src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+</head>
+
+<body style="margin:0px" onload="">
+	<div class="header">
+		<h1>PDF Viewer for all seasons!</h1>
+		<p>
+			<b>Quick</b> and <b>Easy</b> PDF solutions at your fingertips.
+		</p>
+	</div>
+	<div class="menu">
+		<span class="fullwin btn" id="full-window-btn">Full Window Embed Mode</span>
+		<span class="inline btn" id="inline-btn" >Inline Embed Mode</span>
+		<span class="sized btn" id="sized-btn">Sized Container Embed Mode</span>
+	</div>
+	<div id="adobe-dc-pdf-view">
+	</div>
+	<script type="text/javascript" src="script/index.js"></script>
+</body>
+</html>
