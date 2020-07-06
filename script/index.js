@@ -26,11 +26,11 @@ var previewFile = function(){
 	adobeDCView.previewFile({
 		content:{
 			location:{
-				url:"https://basil08.github.io/NSEA-question-paper-2017.pdf",
+				url:"https://basil08.github.io/PDFViewer/sample.pdf",
 			},
 		},
 		metaData:{
-			fileName: "NSEA-question-paper-2017.pdf"
+			fileName: "sample.pdf"
 		}
 	}, viewConfiguration);
 
@@ -85,7 +85,7 @@ var init = function(){
 
 
 /*
- *	Set up new view mode by setting viewConfiguration object's embedMode property
+ *  Set up new view mode by setting viewConfiguration object's embedMode property
  *  Also calls previewFile() to render PDF freshly
  */
 var setViewMode = function(newEmbedMode){
