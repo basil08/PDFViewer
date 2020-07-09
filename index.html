@@ -1,60 +1,65 @@
+<!DOCTYPE html>
 <html>
-
-
 <head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-171640245-2"></script>
+
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-171640245-2');
+	</script>
 
 
-<title>PDF Viewer</title>
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1"/>
 
+	<title>PDF Viewer</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-171640245-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-171640245-2');
-</script>
-
-
-<link rel="stylesheet" type="text/css" href="style/home.css" />
-<script type="text/javascript" src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+	<!-- <link rel="stylesheet" type="text/css" href="style.css" /> -->
 </head>
+<body>
+	<h1 style="text-align: center;padding: 20px">PDF Viewer</h1>
+	<!-- menu buttons goes here -->
 
-<body style="margin:0px" onload="">
-	<div class="header">
-		<h1>PDF Viewer for all seasons!</h1>
-		<p>
-			<b>Quick</b> and <b>Easy</b> PDF solutions at your fingertips.
-		</p>
-	</div>
-	<div class="menu">
-		<span class="fullwin btn" id="full-window-btn">Full Window Embed Mode</span>
-		<span class="inline btn" id="inline-btn" >Inline Embed Mode</span>
-		<span class="sized btn" id="sized-btn">Sized Container Embed Mode</span>
-	</div>
-	<div id="adobe-dc-pdf-view">
-	</div>
-	<script type="text/javascript" src="script/index.js"></script>
+	<div id="adobe-dc-view"></div>
 
-	<div>
-		<h2>History of PDF</h2>
-		<p>
-			The Portable Document Format (PDF) is a file format developed by <a href="https://www.adobe.com">Adobe</a> in the 1990s to present documents, including text formatting and images, in a manner independent of application software, hardware, and operating systems.Based on the PostScript language, each PDF file encapsulates a complete description of a fixed-layout flat document, including the text, fonts, vector graphics, raster images and other information needed to display it. PDF was standardized as ISO 32000 in 2008, and no longer requires any royalties for its implementation.
-		</p>
-		<p>		
-			PDF files may contain a variety of content besides flat text and graphics including logical structuring elements, interactive elements such as annotations and form-fields, layers, rich media (including video content) and three dimensional objects using U3D or PRC, and various other data formats. The PDF specification also provides for encryption and digital signatures, file attachments and metadata to enable workflows requiring these features.
-		</p>
-		
-		<h2>Further Reading</h2>
-		<p>For more information about this ubiquitous document format, see <a href="https://en.wikipedia.org/wiki/PDF" onclick="ga('send','event','LINK_CLICK','Link clicked');">here</a>.</p>
+	<script type="text/javascript">
+		document.addEventListener("adobe_dc_view_sdk.ready", () => {
+				const adobeDCView = new AdobeDC.View({clientId:"1a60003e5fd949c3b91aff19c242caff",divId:"adobe-dc-view"});
+				adobeDCView.previewFile({
+					content:{ location: { url:"https://basil08.github.io/PDFViewer/sample.pdf" } },
+					metaData:{ fileName:"sample.pdf" } },
+					{ enablePDFAnalytics:true });
+				const eventOptions = {
+					// Pass eveents to receive
+					// If no event is passed in listenOn, then all file preview events will be received
+					listenOn:[
+					],
+					enableFilePrevewEvents:true,
+					enablePDFAnalytics:true
+				}
 
-	</div>
+				adobeDCView.registerCallback(
+					AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
+					(event) => {
+						console.log(event);
+						if("ga" in window) {
+							console.log("ga found in window");
+							tracker = ga.getAll()[0];
+							if(tracker)
+								console.log("tracker found in window");
+								tracker.send("event", event.type, event.data);
+						}
+					}, eventOptions
+					);
 
+		});
+
+	</script>
 
 </body>
 </html>
