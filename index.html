@@ -47,13 +47,21 @@
 					AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
 					(event) => {
 						console.log(event);
-						if("ga" in window) {
-							console.log("ga found in window");
-							tracker = ga.getAll()[0];
-							if(tracker)
-								console.log("tracker found in window");
-								tracker.send("event", event.type, event.data);
-						}
+							switch(event.type){
+							case "DOCUMENT_OPEN": 					// send relevant ones to ga
+							ga('send','event','DOCUMENT_OPEN', event.data.fileName, 'Document was opened.');
+							break;
+							case "PAGE_VIEW":
+							ga('send','event','PAGE_VIEW',`${event.data.pageNumber} of ${event.data.fileName}`, 'view page');
+							break;
+							case "DOCUMENT_DOWNLOAD":
+							ga('send','event','DOCUMENT_DOWNLOAD',event.data.fileName,'Document download');
+							break;
+							case "TEXT_COPY":
+							ga('send','event','TEXT_COPY',`${event.data.copiedText} from ${event.data.fileName}`, 'text copied');
+							break;
+							default: 								// ignore all the rest for now..
+			}
 					}, eventOptions
 					);
 
