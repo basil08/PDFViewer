@@ -13,8 +13,8 @@ const viewConfiguration = {
 
 // the dafault PDF to render
 const fileDetails = {
-  fileURL:"https://basil08.github.io/PDFViewer/sample.pdf",
-  fileName:"sample.pdf"
+  fileURL:"https://basil08.github.io/PDFViewer/sample2.pdf",
+  fileName:"sample2.pdf"
 }
 
 let init = () => {
@@ -50,7 +50,10 @@ let init = () => {
 
 // Assume all urls are correct!
 let isValidURL = (url) => {
+  // Reference: StackOverflow
   let validURLRegex = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/
+  
+  // My own is not adequate enough
   // let validURLRegex = /^((https?):\/\/)?([w|W]{3}\.)+[a-zA-Z0-9\-\.]{3,}\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/
   return validURLRegex.test(url) && url.endsWith(".pdf");
 }
@@ -117,7 +120,6 @@ let previewFile = function(fileDetails){
             eventAction: "Document Open",
             eventLabel:`event.data.fileName`
           });
-          // ga('send','event','DOCUMENT_OPEN', event.data.fileName, 'Document was opened.');
           break;
         case "PAGE_VIEW":
            ga("send", "event", {
@@ -125,7 +127,6 @@ let previewFile = function(fileDetails){
                   eventAction: "Page View",
                   eventLabel:`${event.data.pageNumber} of ${event.data.fileName}` 
               });
-          // ga('send','event','PAGE_VIEW',`${event.data.pageNumber} of ${event.data.fileName}`, 'view page');
           break;
         case "DOCUMENT_DOWNLOAD":
           ga("send", "event", {
@@ -133,7 +134,6 @@ let previewFile = function(fileDetails){
                 eventAction: "Document Download",
                 eventLabel: event.data.fileName
           });
-          // ga('send','event','DOCUMENT_DOWNLOAD',event.data.fileName,'Document download');
           break;
         case "TEXT_COPY":
           ga("send", "event",{
@@ -141,31 +141,16 @@ let previewFile = function(fileDetails){
                 eventAction: "Text Copy",
                 eventLabel:`${event.data.copiedText} from ${event.data.fileName}`
           });
-          // ga('send','event','TEXT_COPY',`${event.data.copiedText} from ${event.data.fileName}`, 'text copied');
           break;
         default:                // ignore all the rest for now..
       }
     },
     {
-      enablePDFAnalytics:true,      // there is something more also
+      enablePDFAnalytics:true, 
       enableFilePreviewEvents:true
     });  
 };
 
-
 // kick-start everything
-
-
-// let init  = () => {
-// document.addEventListener("adobe_dc_view_sdk.ready" , () => {
-//     previewFile(fileDetails);
-//   });
-// }
-
 init();
-// call previewFile for the 1st time when sdk is ready
-//   document.addEventListener("adobe_dc_view_sdk.ready" , () => {
-//     previewFile(fileDetails);
-// });
-// previewFile(fileDetails);
-  
+
