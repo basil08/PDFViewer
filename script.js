@@ -35,7 +35,7 @@ let init = () => {
     setViewMode('SIZED_CONTAINER');
     // revert to sized container style
     document.getElementsByTagName('body').style = "margin:100px 0 0 200px";
-    document.getElementById('adobe-dc-pdf-view').style = "height: 476px; width: 600px; border: 1px solid #dadada";
+    document.getElementById('adobe-dc-pdf-view').style = "height: 476px; width: 600px; border: 1px solid #dadada;display:inline-block;";
   };
 
   document.getElementById("file-load-btn").onclick = () => {
@@ -91,7 +91,7 @@ let setFileDetails = () => {
  * event's data to Google Analytics. 
  */
 let previewFile = function(fileDetails){
-  var adobeDCView = new AdobeDC.View({
+  let adobeDCView = new AdobeDC.View({
     clientId:"1a60003e5fd949c3b91aff19c242caff",
     divId:"adobe-dc-pdf-view",
   });
@@ -154,8 +154,15 @@ let previewFile = function(fileDetails){
 
 
 // kick-start everything
-init();
 
+
+// let init  = () => {
+// document.addEventListener("adobe_dc_view_sdk.ready" , () => {
+//     previewFile(fileDetails);
+//   });
+// }
+
+init();
 // call previewFile for the 1st time when sdk is ready
 //   document.addEventListener("adobe_dc_view_sdk.ready" , () => {
 //     previewFile(fileDetails);

@@ -10,51 +10,12 @@ html{
 	background-color: #ccc;
 }
 
-
 .menu{
 	text-align: center;
 	padding:20px;
 	background-color: #aaa;
 }
 
-.tag-line{
-	font-size: 20px;
-	transition: 0.4s;
-	/*margin:5px;*/
-	padding:10px;
-	background-color: #ddd;
-}
-
-.tag-line:hover{
-	font-size:25px;
-}
-
-.by{
-	font-size:15px;
-	background-color: #eee;
-	/*margin:5px;*/
-/*	padding:5px;
-*/	transition: 0.4s;
-}
-
-/*
-.picker{
-	padding: 20px;
-	text-align: center;
-	background-color: #ddd;
-}
-
-
-#file-picker-label{
-	padding:10px;
-	background-color: #bbb;
-}
-
-#file-picker{
-	padding:10px;
-	background-color: #aaa;
-}
-*/
 .btn{
 	border:none;
 	text-align: center;
@@ -124,7 +85,9 @@ html{
 }
 
 h2{
-	padding-left: 10px;
+	background-color: #ccc;
+	padding: 20px;
+	font-family: "Times new roman";
 }
 
 p{
