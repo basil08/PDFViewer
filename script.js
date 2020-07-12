@@ -92,7 +92,7 @@ let setFileDetails = () => {
  */
 let previewFile = function(fileDetails){
   var adobeDCView = new AdobeDC.View({
-    clientId:"33fb79e7874542ce968eef99bbfeac22",
+    clientId:"1a60003e5fd949c3b91aff19c242caff",
     divId:"adobe-dc-pdf-view",
   });
 
