@@ -1,73 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-171640245-2"></script>
+	<title>Enhanced PDF Viewer</title>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1"/>
 
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'UA-171640245-2');
-	</script>
-
-
-
-	<title>PDF Viewer</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="style.css" >
 	<script type="text/javascript" src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
-
-	<!-- <link rel="stylesheet" type="text/css" href="style.css" /> -->
 </head>
-<body>
-	<h1 style="text-align: center;padding: 20px">PDF Viewer</h1>
-	<!-- menu buttons goes here -->
 
-	<div id="adobe-dc-view"></div>
+<body style="margin:0px">
+	
+	<div class="header">
+		<h1>Enhanced PDF Viewer</h1>
+	
+		<div class="tag-line">
+			<p><b>Quick</b> and <b>Easy</b> PDF Solutions at your fingertips!</p>
+		</div>
 
-	<script type="text/javascript">
-		document.addEventListener("adobe_dc_view_sdk.ready", () => {
-				const adobeDCView = new AdobeDC.View({clientId:"1a60003e5fd949c3b91aff19c242caff",divId:"adobe-dc-view"});
-				adobeDCView.previewFile({
-					content:{ location: { url:"https://basil08.github.io/PDFViewer/sample.pdf" } },
-					metaData:{ fileName:"sample.pdf" } },
-					{ enablePDFAnalytics:true });
-				const eventOptions = {
-					// Pass eveents to receive
-					// If no event is passed in listenOn, then all file preview events will be received
-					listenOn:[
-					],
-					enableFilePrevewEvents:true,
-					enablePDFAnalytics:true
-				}
+		<div class="by">
+			<p>Powered by Adobe DC View SDK and Google Analytics.</p>
+		</div>
+	</div>
 
-				adobeDCView.registerCallback(
-					AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
-					(event) => {
-						console.log(event);
-							switch(event.type){
-							case "DOCUMENT_OPEN": 					// send relevant ones to ga
-							ga('send','event','DOCUMENT_OPEN', event.data.fileName, 'Document was opened.');
-							break;
-							case "PAGE_VIEW":
-							ga('send','event','PAGE_VIEW',`${event.data.pageNumber} of ${event.data.fileName}`, 'view page');
-							break;
-							case "DOCUMENT_DOWNLOAD":
-							ga('send','event','DOCUMENT_DOWNLOAD',event.data.fileName,'Document download');
-							break;
-							case "TEXT_COPY":
-							ga('send','event','TEXT_COPY',`${event.data.copiedText} from ${event.data.fileName}`, 'text copied');
-							break;
-							default: 								// ignore all the rest for now..
-			}
-					}, eventOptions
-					);
+  	<div class="url-input">
+  		<label>URL Path to your file: </label>
+  		<input type="text" id="file-url-box" value="https://basil08.github.io/PDFViewer/sample.pdf" />
+		<span class="fileload btn" id="file-load-btn">Load File Preview</span>  
+		<span class="help" id="box-help"></span>
+		
+  	</div>
+	<div class="menu">
+		<span class="fullwin btn" id="full-window-btn">Full Window Embed Mode</span>
+		<span class="inline btn" id="inline-btn" >Inline Embed Mode</span>
+		<span class="sized btn" id="sized-btn">Sized Container Embed Mode</span>
+	</div>
 
-		});
+	<div class="pdf-view">
+		<div id="adobe-dc-pdf-view">
+		</div>
+	</div>
 
-	</script>
+	<script type="text/javascript" src="script.js"></script>
+	
+	<div>
+		<h2>How to use this app</h2>
+		<p>Enter a valid URL path to a PDF file and get it rendered immediately.<br>Please include file name as part of the path also (as shown in the sample above)</p>
+		<h2>History of PDF</h2>
+		<p>
+			The Portable Document Format (PDF) is a file format developed by <a href="https://www.adobe.com">Adobe</a> in the 1990s to present documents, including text formatting and images, in a manner independent of application software, hardware, and operating systems.Based on the PostScript language, each PDF file encapsulates a complete description of a fixed-layout flat document, including the text, fonts, vector graphics, raster images and other information needed to display it. PDF was standardized as ISO 32000 in 2008, and no longer requires any royalties for its implementation.
+		</p>
+		<p>		
+			PDF files may contain a variety of content besides flat text and graphics including logical structuring elements, interactive elements such as annotations and form-fields, layers, rich media (including video content) and three dimensional objects using U3D or PRC, and various other data formats. The PDF specification also provides for encryption and digital signatures, file attachments and metadata to enable workflows requiring these features.
+		</p>
+		<blockquote style="font-size:10px">Source: Wikipedia</blockquote>
+
+		<h2>Further Reading</h2>
+		<p>For more information about this ubiquitous document format, see <a href="https://en.wikipedia.org/wiki/PDF">here</a>.</p>
+		
+	</div>	
 
 </body>
 </html>
+
