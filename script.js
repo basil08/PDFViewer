@@ -16,7 +16,7 @@ const viewConfiguration = {
  * fileName
  */
 const fileDetails = {
-  promise:"",
+  promise:null,
   fileURL:"https://basil08.github.io/PDFViewer/candida.pdf",
   fileName:"candida.pdf"
 }
@@ -102,17 +102,18 @@ let previewFile = function(fileDetails){
     divId:"adobe-dc-pdf-view",
   });
 
-  adobeDCView.previewFile({
-    content:{
-      location:{
-        url:fileDetails.fileURL,
-      },
-      promise:fileDetails.promise,
-    },
-    metaData:{
-      fileName:fileDetails.fileName,
-    }
-  }, viewConfiguration);
+   if(fileDetails.fileURL){
+       adobeDCView.previewFile({
+      content:{ location:{ url:fileDetails.fileURL} },
+      metaData:{fileName:fileDetails.fileName}
+       }, viewConfiguration);
+   }
+  if(fileDetails.promise){
+    adobeDCView.previewFile({
+      content:{promise:fileDetails.promise},
+      metaData:{ fileName:fileDetails.fileName, }
+    }, viewConfiguration);
+  }
 
   adobeDCView.registerCallback(
     AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
