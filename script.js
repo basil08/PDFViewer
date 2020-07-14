@@ -17,7 +17,8 @@ const viewConfiguration = {
  */
 const fileDetails = {
   promise:"",
-  fileName:""
+  fileURL:"https:/basil08.github.io/PDFViewer/candida.pdf",
+  fileName:"candida.pdf"
 }
 
 let init = () => {
@@ -40,7 +41,9 @@ let init = () => {
     document.getElementsByTagName('body').style = "margin:100px 0 0 200px";
     document.getElementById('adobe-dc-pdf-view').style = "height: 476px; width: 600px; border: 1px solid #dadada;display:inline-block;";
   };
-
+  document.addEventListener("adobe_dc_view_sdk.ready", ()=>{
+    previewFile(fileDetails);
+  });
   setFilePickHandler();
 };
 
@@ -73,6 +76,7 @@ let setFilePickHandler = () => {
 let setFilePromise = (promise, name) => {
   fileDetails.promise = promise;
   fileDetails.fileName = name;
+  fileDetails.fileURL = "";
   previewFile(fileDetails);
 }
 
@@ -100,6 +104,9 @@ let previewFile = function(fileDetails){
 
   adobeDCView.previewFile({
     content:{
+      location:{
+        url:fileDetails.fileURL,
+      },
       promise:fileDetails.promise,
     },
     metaData:{
