@@ -11,10 +11,13 @@ const viewConfiguration = {
     enableFormFilling:false
 };
 
-// the dafault PDF to render
+/* Holds data regarding file for previewFile
+ * promise 
+ * fileName
+ */
 const fileDetails = {
-  fileURL:"https://basil08.github.io/PDFViewer/sample2.pdf",
-  fileName:"sample2.pdf"
+  promise:"",
+  fileName:""
 }
 
 let init = () => {
@@ -38,24 +41,39 @@ let init = () => {
     document.getElementById('adobe-dc-pdf-view').style = "height: 476px; width: 600px; border: 1px solid #dadada;display:inline-block;";
   };
 
-  document.getElementById("file-load-btn").onclick = () => {
-    setFileDetails();
-  };
-  // call previewFile for the 1st time when sdk is ready
-  document.addEventListener("adobe_dc_view_sdk.ready" , () => {
-    previewFile(fileDetails);
-  });
+  setFilePickHandler();
 };
 
 
-// Assume all urls are correct!
-let isValidURL = (url) => {
-  // Reference: StackOverflow
-  let validURLRegex = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/
-  
-  // My own is not adequate enough
-  // let validURLRegex = /^((https?):\/\/)?([w|W]{3}\.)+[a-zA-Z0-9\-\.]{3,}\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/
-  return validURLRegex.test(url) && url.endsWith(".pdf");
+/*
+ * Sets up file handling with file picker
+ * Processes files chosen and calls setFilePromise with the corresponding data to populate
+ */
+
+let setFilePickHandler = () => {
+  const fileToRead = document.getElementById("file-picker");
+  fileToRead.addEventListener("change", (event) => {
+     const files = fileToRead.files;
+     if (files.length > 0) {
+        var reader = new FileReader();
+        reader.onloadend = (e) => {
+            const filePromise = Promise.resolve(e.target.result);
+            const fileName = files[0].name;
+            setFilePromise(filePromise, fileName);
+        };
+        reader.readAsArrayBuffer(files[0]);
+      }
+    }, false);
+}
+
+/* 
+ * Sets the fileDetails object with relevant value 
+ * and calls previewFile 
+ */
+let setFilePromise = (promise, name) => {
+  fileDetails.promise = promise;
+  fileDetails.fileName = name;
+  previewFile(fileDetails);
 }
 
 /*
@@ -68,25 +86,6 @@ let setViewMode = (newEmbedMode) => {
   }
   previewFile(fileDetails);
 };
-
-let setFileDetails = () => {
-  let url = document.getElementById("file-url-box").value;
-  if(!url){
-    document.getElementById("box-help").textContent = "Please specified a URL";
-    document.getElementById("box-help").style.color = "#ff0000";
-  }
-  else if(!isValidURL(url)){
-    document.getElementById("box-help").textContent = "Invalid URL path";
-    document.getElementById("box-help").style.color = "#ff0000";
-  }
-  else{
-    document.getElementById("box-help").textContent = "";
-    document.getElementById("box-help").style.color = "#000000";
-    fileDetails.fileURL = url;
-    fileDetails.fileName = url.slice(url.lastIndexOf("/") + 1);     // kind of lousy, but alright for the purpose
-    previewFile(fileDetails);
-  }
-}
 
 /*
  * Constructs and calls preview file with specified url
@@ -101,9 +100,7 @@ let previewFile = function(fileDetails){
 
   adobeDCView.previewFile({
     content:{
-      location:{
-        url:fileDetails.fileURL,
-      },
+      promise:fileDetails.promise,
     },
     metaData:{
       fileName:fileDetails.fileName,
@@ -112,9 +109,9 @@ let previewFile = function(fileDetails){
 
   adobeDCView.registerCallback(
     AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
-    (event) => {                // the callback for all Adobe Events
+    (event) => {               
       switch(event.type){
-        case "DOCUMENT_OPEN":           // send relevant ones to ga
+        case "DOCUMENT_OPEN":           
           ga("send", "event", {
             eventCategory: "Adobe DC View SDK",
             eventAction: "Document Open",
@@ -142,11 +139,11 @@ let previewFile = function(fileDetails){
                 eventLabel:`${event.data.copiedText} from ${event.data.fileName}`
           });
           break;
-        default:                // ignore all the rest for now..
+        default:                
       }
     },
     {
-      enablePDFAnalytics:true, 
+      enablePDFAnalytics:true,   
       enableFilePreviewEvents:true
     });  
 };

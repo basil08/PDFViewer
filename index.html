@@ -1,14 +1,13 @@
  <!DOCTYPE html>
  <html>
  <head>
- 	<title>Enhanced PDF Viewer</title>
+ 	<title>Further Enhanced PDF Viewer</title>
  	<meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1"/>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171640245-2"></script>
-
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -16,25 +15,26 @@
 
   gtag('config', 'UA-171640245-2');
 </script>
-	 
+<!-- End: Google Analytics -->
+
 <link rel="stylesheet" type="text/css" href="style.css" />
 
- 	<script type="text/javascript" src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+ <script type="text/javascript" src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
  </head>
 
- <body style="margin:0px">
+ <body>
  	
  	<div class="header">
-		<p><b>Working with PDF?</b></p><br>
-		<p><b>Now made Easy!</b></p>
+ 		<p><b>Working with PDF?</b></p><br>
+ 		<p><b>Now made Easy!</b></p>
  	</div>
-<div class="url-input">
-  		<label>URL Path to your file: </label>
-  		<input type="text" id="file-url-box" value="https://basil08.github.io/PDFViewer/sample2.pdf" />
-		<span class="fileload btn" id="file-load-btn">Load File Preview</span>  
-		<span class="help" id="box-help"></span>
-		
+ 	
+  	<div class="picker-div">
+  		<label class="picker-label" id="file-picker-label" for="file-picker">Choose a PDF file:
+			<input class="" type="file" id="file-picker" accept="application/pdf">
+		</label>
   	</div>
+
  	<div class="menu">
 		<span class="fullwin btn" id="full-window-btn">Full Window Embed Mode</span>
 		<span class="inline btn" id="inline-btn" >Inline Embed Mode</span>
@@ -43,13 +43,12 @@
 
 	<div id="adobe-dc-pdf-view">
 	</div>
-
  	<script type="text/javascript" src="script.js"></script>
 
  	<div>
  		<h2>How to use this application?</h2>
-		<p>Try ".../sample.pdf" in the File URL Input box.</p><br>
- 		<p>Provide a path to your PDF file in the URL Input box provided above and render your PDF.<br>Please include the file name as part of the path (as shown in the example)</p>
+ 		<p>Click on <em>Choose a PDF File</em> and choose a file to render.<br>
+ 		You can annotate, take notes and download the file even!</p>
 		<h2>PDF - Portable Document Format</h2>
 		<p>
 			Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
