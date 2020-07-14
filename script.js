@@ -17,7 +17,7 @@ const viewConfiguration = {
  */
 const fileDetails = {
   promise:"",
-  fileURL:"https:/basil08.github.io/PDFViewer/candida.pdf",
+  fileURL:"https://basil08.github.io/PDFViewer/candida.pdf",
   fileName:"candida.pdf"
 }
 
