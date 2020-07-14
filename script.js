@@ -101,19 +101,12 @@ let previewFile = function(fileDetails){
     clientId:"1a60003e5fd949c3b91aff19c242caff",
     divId:"adobe-dc-pdf-view",
   });
-
-   if(fileDetails.fileURL){
-       adobeDCView.previewFile({
-      content:{ location:{ url:fileDetails.fileURL} },
-      metaData:{fileName:fileDetails.fileName}
-       }, viewConfiguration);
-   }
-  if(fileDetails.promise){
+  
     adobeDCView.previewFile({
-      content:{promise:fileDetails.promise},
-      metaData:{ fileName:fileDetails.fileName, }
+      content:{location:{url:fileDetails.fileURL},
+        promise:fileDetails.promise},
+      metaData:{ fileName:fileDetails.fileName,}
     }, viewConfiguration);
-  }
 
   adobeDCView.registerCallback(
     AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
